@@ -36,13 +36,13 @@ const (
 // ModelMapping maps user-facing model names to CodeWhisperer internal model names
 // 模型映射表：将用户使用的模型名称映射到 CodeWhisperer 内部的模型名称
 var ModelMapping = map[string]string{
-	"claude-opus-4-5":             "claude-opus-4.5",
-	"claude-opus-4-5-20251101":    "claude-opus-4.5",
-	"claude-haiku-4-5":            "claude-haiku-4.5",
-	"claude-sonnet-4-5":           "CLAUDE_SONNET_4_5_20250929_V1_0",
-	"claude-sonnet-4-5-20250929":  "CLAUDE_SONNET_4_5_20250929_V1_0",
-	"claude-sonnet-4-20250514":    "CLAUDE_SONNET_4_20250514_V1_0",
-	"claude-3-7-sonnet-20250219":  "CLAUDE_3_7_SONNET_20250219_V1_0",
+	"claude-opus-4-5":            "claude-opus-4.5",
+	"claude-opus-4-5-20251101":   "claude-opus-4.5",
+	"claude-haiku-4-5":           "claude-haiku-4.5",
+	"claude-sonnet-4-5":          "CLAUDE_SONNET_4_5_20250929_V1_0",
+	"claude-sonnet-4-5-20250929": "CLAUDE_SONNET_4_5_20250929_V1_0",
+	"claude-sonnet-4-20250514":   "CLAUDE_SONNET_4_20250514_V1_0",
+	"claude-3-7-sonnet-20250219": "CLAUDE_3_7_SONNET_20250219_V1_0",
 }
 
 // SupportedModels lists all supported model names

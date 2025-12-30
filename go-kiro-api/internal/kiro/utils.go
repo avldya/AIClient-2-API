@@ -16,7 +16,7 @@ import (
 func GenerateMachineID(credentials map[string]interface{}) string {
 	// Priority: UUID > ProfileArn > ClientId > fallback
 	var uniqueKey string
-	
+
 	if val, ok := credentials["uuid"].(string); ok && val != "" {
 		uniqueKey = val
 	} else if val, ok := credentials["profileArn"].(string); ok && val != "" {
@@ -26,7 +26,7 @@ func GenerateMachineID(credentials map[string]interface{}) string {
 	} else {
 		uniqueKey = "KIRO_DEFAULT_MACHINE"
 	}
-	
+
 	hash := sha256.Sum256([]byte(uniqueKey))
 	return hex.EncodeToString(hash[:])
 }
@@ -37,7 +37,7 @@ func GetSystemRuntimeInfo() map[string]string {
 	osName := runtime.GOOS
 	osArch := runtime.GOARCH
 	goVersion := runtime.Version()
-	
+
 	// Format OS name similar to Node.js implementation
 	if osName == "windows" {
 		osName = fmt.Sprintf("windows#%s", osArch)
@@ -46,7 +46,7 @@ func GetSystemRuntimeInfo() map[string]string {
 	} else {
 		osName = fmt.Sprintf("%s#%s", osName, osArch)
 	}
-	
+
 	return map[string]string{
 		"osName":    osName,
 		"goVersion": strings.TrimPrefix(goVersion, "go"),
@@ -66,29 +66,29 @@ func FindMatchingBracket(text string, startPos int, openChar, closeChar byte) in
 	if startPos >= len(text) || text[startPos] != openChar {
 		return -1
 	}
-	
+
 	count := 0
 	inString := false
 	escapeNext := false
-	
+
 	for i := startPos; i < len(text); i++ {
 		char := text[i]
-		
+
 		if escapeNext {
 			escapeNext = false
 			continue
 		}
-		
+
 		if char == '\\' {
 			escapeNext = true
 			continue
 		}
-		
+
 		if char == '"' {
 			inString = !inString
 			continue
 		}
-		
+
 		if !inString {
 			if char == openChar {
 				count++
@@ -100,7 +100,7 @@ func FindMatchingBracket(text string, startPos int, openChar, closeChar byte) in
 			}
 		}
 	}
-	
+
 	return -1
 }
 
@@ -110,10 +110,10 @@ func FixJSON(jsonStr string) string {
 	// Remove trailing commas before } or ]
 	jsonStr = strings.ReplaceAll(jsonStr, ",}", "}")
 	jsonStr = strings.ReplaceAll(jsonStr, ",]", "]")
-	
+
 	// Trim whitespace
 	jsonStr = strings.TrimSpace(jsonStr)
-	
+
 	return jsonStr
 }
 
@@ -124,38 +124,38 @@ func ParseBracketFormat(content string) (string, string, map[string]interface{},
 	if !strings.HasPrefix(content, "[Called ") {
 		return "", "", nil, false
 	}
-	
+
 	// Find "with args:"
 	argsPos := strings.Index(content, " with args: ")
 	if argsPos == -1 {
 		return "", "", nil, false
 	}
-	
+
 	// Extract function name
 	functionName := strings.TrimSpace(content[8:argsPos]) // Skip "[Called "
-	
+
 	// Find the opening { for args
 	argsStart := strings.Index(content[argsPos:], "{")
 	if argsStart == -1 {
 		return "", "", nil, false
 	}
 	argsStart += argsPos
-	
+
 	// Find matching closing }
 	argsEnd := FindMatchingBracket(content, argsStart, '{', '}')
 	if argsEnd == -1 {
 		return "", "", nil, false
 	}
-	
+
 	// Extract and parse JSON args
 	argsJSON := content[argsStart : argsEnd+1]
 	argsJSON = FixJSON(argsJSON)
-	
+
 	var args map[string]interface{}
 	if err := json.Unmarshal([]byte(argsJSON), &args); err != nil {
 		return "", "", nil, false
 	}
-	
+
 	return functionName, argsJSON, args, true
 }
 
@@ -170,7 +170,7 @@ func CountTokens(text string) int {
 func DeduplicateToolUses(toolUses []map[string]interface{}) []map[string]interface{} {
 	seen := make(map[string]bool)
 	result := make([]map[string]interface{}, 0)
-	
+
 	for _, toolUse := range toolUses {
 		if id, ok := toolUse["toolUseId"].(string); ok {
 			if !seen[id] {
@@ -182,7 +182,7 @@ func DeduplicateToolUses(toolUses []map[string]interface{}) []map[string]interfa
 			result = append(result, toolUse)
 		}
 	}
-	
+
 	return result
 }
 
@@ -192,19 +192,19 @@ func GetContentText(content interface{}) string {
 	if content == nil {
 		return ""
 	}
-	
+
 	// If it's a string, return directly
 	if str, ok := content.(string); ok {
 		return str
 	}
-	
+
 	// If it's a map with "content" key
 	if m, ok := content.(map[string]interface{}); ok {
 		if val, exists := m["content"]; exists {
 			return GetContentText(val)
 		}
 	}
-	
+
 	// If it's an array of content parts
 	if arr, ok := content.([]interface{}); ok {
 		var texts []string
@@ -219,7 +219,7 @@ func GetContentText(content interface{}) string {
 		}
 		return strings.Join(texts, "\n")
 	}
-	
+
 	return ""
 }
 

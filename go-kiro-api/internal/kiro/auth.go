@@ -17,15 +17,15 @@ import (
 // AuthManager handles authentication and token management
 // 认证管理器
 type AuthManager struct {
-	credentials      *models.Credentials
-	base64Creds      string
-	credsFilePath    string
-	credPath         string
-	refreshURL       string
-	refreshIDCURL    string
-	region           string
-	cronNearMinutes  int
-	httpClient       *HTTPClient
+	credentials     *models.Credentials
+	base64Creds     string
+	credsFilePath   string
+	credPath        string
+	refreshURL      string
+	refreshIDCURL   string
+	region          string
+	cronNearMinutes int
+	httpClient      *HTTPClient
 }
 
 // NewAuthManager creates a new authentication manager

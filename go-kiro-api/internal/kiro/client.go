@@ -17,11 +17,11 @@ import (
 // HTTPClient wraps http.Client with custom configuration
 // HTTP 客户端包装器
 type HTTPClient struct {
-	client      *http.Client
-	proxyURL    *url.URL
-	timeout     time.Duration
-	maxRetries  int
-	baseDelay   time.Duration
+	client     *http.Client
+	proxyURL   *url.URL
+	timeout    time.Duration
+	maxRetries int
+	baseDelay  time.Duration
 }
 
 // NewHTTPClient creates a new HTTP client

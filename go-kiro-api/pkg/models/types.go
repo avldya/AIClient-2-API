@@ -10,13 +10,13 @@ type Message struct {
 // ContentPart represents a part of message content (text, image, tool_result, tool_use)
 // 消息内容块（文本、图片、工具结果、工具使用）
 type ContentPart struct {
-	Type       string                 `json:"type"`
-	Text       string                 `json:"text,omitempty"`
-	Source     *ImageSource           `json:"source,omitempty"`
-	ToolUseID  string                 `json:"tool_use_id,omitempty"`
-	Input      map[string]interface{} `json:"input,omitempty"`
-	Name       string                 `json:"name,omitempty"`
-	ID         string                 `json:"id,omitempty"`
+	Type      string                 `json:"type"`
+	Text      string                 `json:"text,omitempty"`
+	Source    *ImageSource           `json:"source,omitempty"`
+	ToolUseID string                 `json:"tool_use_id,omitempty"`
+	Input     map[string]interface{} `json:"input,omitempty"`
+	Name      string                 `json:"name,omitempty"`
+	ID        string                 `json:"id,omitempty"`
 }
 
 // ImageSource represents image data
@@ -51,30 +51,30 @@ type ChatCompletionRequest struct {
 // CodeWhispererRequest represents the request format for CodeWhisperer API
 // CodeWhisperer API 请求格式
 type CodeWhispererRequest struct {
-	ConversationID    string                       `json:"conversationId"`
-	UserInputMessage  *UserInputMessage            `json:"userInputMessage"`
-	History           []HistoryItem                `json:"history,omitempty"`
-	ChatTriggerType   string                       `json:"chatTriggerType"`
-	DiagnosticContext *DiagnosticContext           `json:"diagnosticContext,omitempty"`
-	SupplementalContext *SupplementalContext       `json:"supplementalContext,omitempty"`
-	Tools             *ToolsContext                `json:"tools,omitempty"`
+	ConversationID      string               `json:"conversationId"`
+	UserInputMessage    *UserInputMessage    `json:"userInputMessage"`
+	History             []HistoryItem        `json:"history,omitempty"`
+	ChatTriggerType     string               `json:"chatTriggerType"`
+	DiagnosticContext   *DiagnosticContext   `json:"diagnosticContext,omitempty"`
+	SupplementalContext *SupplementalContext `json:"supplementalContext,omitempty"`
+	Tools               *ToolsContext        `json:"tools,omitempty"`
 }
 
 // UserInputMessage represents a user input message for CodeWhisperer
 // CodeWhisperer 用户输入消息
 type UserInputMessage struct {
-	Content     string              `json:"content"`
-	ModelID     string              `json:"modelId"`
-	Origin      string              `json:"origin"`
-	Images      []ImageData         `json:"images,omitempty"`
-	ToolResults []ToolResult        `json:"toolResults,omitempty"`
+	Content     string       `json:"content"`
+	ModelID     string       `json:"modelId"`
+	Origin      string       `json:"origin"`
+	Images      []ImageData  `json:"images,omitempty"`
+	ToolResults []ToolResult `json:"toolResults,omitempty"`
 }
 
 // ImageData represents image data for CodeWhisperer
 // CodeWhisperer 图片数据
 type ImageData struct {
-	Format string       `json:"format"`
-	Source *ImageBytes  `json:"source"`
+	Format string      `json:"format"`
+	Source *ImageBytes `json:"source"`
 }
 
 // ImageBytes contains base64 encoded image bytes
@@ -100,15 +100,15 @@ type ToolResultContent struct {
 // HistoryItem represents a history item in CodeWhisperer request
 // CodeWhisperer 历史记录项
 type HistoryItem struct {
-	UserInputMessage      *UserInputMessage      `json:"userInputMessage,omitempty"`
+	UserInputMessage         *UserInputMessage         `json:"userInputMessage,omitempty"`
 	AssistantResponseMessage *AssistantResponseMessage `json:"assistantResponseMessage,omitempty"`
 }
 
 // AssistantResponseMessage represents assistant response in history
 // 历史记录中的助手响应
 type AssistantResponseMessage struct {
-	Content string         `json:"content"`
-	ToolUses []ToolUse     `json:"toolUses,omitempty"`
+	Content  string    `json:"content"`
+	ToolUses []ToolUse `json:"toolUses,omitempty"`
 }
 
 // ToolUse represents a tool use in assistant response
@@ -140,9 +140,9 @@ type ToolSpecification struct {
 // ToolSpec represents tool specification details
 // 工具规格详情
 type ToolSpec struct {
-	Name        string                 `json:"name"`
-	Description string                 `json:"description"`
-	InputSchema *InputSchema           `json:"inputSchema"`
+	Name        string       `json:"name"`
+	Description string       `json:"description"`
+	InputSchema *InputSchema `json:"inputSchema"`
 }
 
 // InputSchema wraps the JSON schema for tool input
@@ -154,60 +154,60 @@ type InputSchema struct {
 // Credentials represents OAuth credentials
 // OAuth 凭据
 type Credentials struct {
-	AccessToken  string    `json:"accessToken"`
-	RefreshToken string    `json:"refreshToken"`
-	ClientID     string    `json:"clientId"`
-	ClientSecret string    `json:"clientSecret"`
-	AuthMethod   string    `json:"authMethod"`
-	ExpiresAt    string    `json:"expiresAt"`
-	ProfileArn   string    `json:"profileArn,omitempty"`
-	Region       string    `json:"region,omitempty"`
-	UUID         string    `json:"uuid,omitempty"`
+	AccessToken  string `json:"accessToken"`
+	RefreshToken string `json:"refreshToken"`
+	ClientID     string `json:"clientId"`
+	ClientSecret string `json:"clientSecret"`
+	AuthMethod   string `json:"authMethod"`
+	ExpiresAt    string `json:"expiresAt"`
+	ProfileArn   string `json:"profileArn,omitempty"`
+	Region       string `json:"region,omitempty"`
+	UUID         string `json:"uuid,omitempty"`
 }
 
 // StreamEvent represents a streaming event from CodeWhisperer
 // CodeWhisperer 流式响应事件
 type StreamEvent struct {
-	Type    string      `json:"type"`
-	Content string      `json:"content,omitempty"`
-	ToolUse *ToolUse    `json:"toolUse,omitempty"`
-	Input   string      `json:"input,omitempty"`
-	Stop    bool        `json:"stop,omitempty"`
+	Type    string   `json:"type"`
+	Content string   `json:"content,omitempty"`
+	ToolUse *ToolUse `json:"toolUse,omitempty"`
+	Input   string   `json:"input,omitempty"`
+	Stop    bool     `json:"stop,omitempty"`
 }
 
 // ChatCompletionChunk represents a streaming response chunk (OpenAI format)
 // 流式响应块（OpenAI 格式）
 type ChatCompletionChunk struct {
-	ID      string                 `json:"id"`
-	Object  string                 `json:"object"`
-	Created int64                  `json:"created"`
-	Model   string                 `json:"model"`
-	Choices []StreamChoice         `json:"choices"`
+	ID      string         `json:"id"`
+	Object  string         `json:"object"`
+	Created int64          `json:"created"`
+	Model   string         `json:"model"`
+	Choices []StreamChoice `json:"choices"`
 }
 
 // StreamChoice represents a choice in streaming response
 // 流式响应中的选择
 type StreamChoice struct {
-	Index        int           `json:"index"`
-	Delta        *StreamDelta  `json:"delta"`
-	FinishReason *string       `json:"finish_reason"`
+	Index        int          `json:"index"`
+	Delta        *StreamDelta `json:"delta"`
+	FinishReason *string      `json:"finish_reason"`
 }
 
 // StreamDelta represents the delta in streaming response
 // 流式响应中的增量
 type StreamDelta struct {
-	Role      string      `json:"role,omitempty"`
-	Content   string      `json:"content,omitempty"`
-	ToolCalls []ToolCall  `json:"tool_calls,omitempty"`
+	Role      string     `json:"role,omitempty"`
+	Content   string     `json:"content,omitempty"`
+	ToolCalls []ToolCall `json:"tool_calls,omitempty"`
 }
 
 // ToolCall represents a tool call in OpenAI format
 // OpenAI 格式的工具调用
 type ToolCall struct {
-	Index    int                    `json:"index,omitempty"`
-	ID       string                 `json:"id,omitempty"`
-	Type     string                 `json:"type,omitempty"`
-	Function *FunctionCall          `json:"function,omitempty"`
+	Index    int           `json:"index,omitempty"`
+	ID       string        `json:"id,omitempty"`
+	Type     string        `json:"type,omitempty"`
+	Function *FunctionCall `json:"function,omitempty"`
 }
 
 // FunctionCall represents a function call details
@@ -220,12 +220,12 @@ type FunctionCall struct {
 // ClaudeStreamEvent represents Claude streaming event
 // Claude 流式事件
 type ClaudeStreamEvent struct {
-	Type         string                 `json:"type"`
-	Message      *ClaudeMessage         `json:"message,omitempty"`
-	Index        int                    `json:"index,omitempty"`
-	ContentBlock *ClaudeContentBlock    `json:"content_block,omitempty"`
-	Delta        *ClaudeDelta           `json:"delta,omitempty"`
-	Usage        *ClaudeUsage           `json:"usage,omitempty"`
+	Type         string              `json:"type"`
+	Message      *ClaudeMessage      `json:"message,omitempty"`
+	Index        int                 `json:"index,omitempty"`
+	ContentBlock *ClaudeContentBlock `json:"content_block,omitempty"`
+	Delta        *ClaudeDelta        `json:"delta,omitempty"`
+	Usage        *ClaudeUsage        `json:"usage,omitempty"`
 }
 
 // ClaudeMessage represents a Claude message
@@ -254,10 +254,10 @@ type ClaudeContentBlock struct {
 // ClaudeDelta represents a delta in Claude streaming
 // Claude 流式响应中的增量
 type ClaudeDelta struct {
-	Type         string                 `json:"type,omitempty"`
-	Text         string                 `json:"text,omitempty"`
-	StopReason   string                 `json:"stop_reason,omitempty"`
-	PartialJSON  string                 `json:"partial_json,omitempty"`
+	Type        string `json:"type,omitempty"`
+	Text        string `json:"text,omitempty"`
+	StopReason  string `json:"stop_reason,omitempty"`
+	PartialJSON string `json:"partial_json,omitempty"`
 }
 
 // ClaudeUsage represents token usage information

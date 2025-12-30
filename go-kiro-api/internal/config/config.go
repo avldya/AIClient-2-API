@@ -25,16 +25,16 @@ type ServerConfig struct {
 // KiroConfig represents Kiro-specific configuration
 // Kiro 配置
 type KiroConfig struct {
-	CredPath            string `json:"credPath"`
-	CredsBase64         string `json:"credsBase64"`
-	CredsFilePath       string `json:"credsFilePath"`
-	Region              string `json:"region"`
-	UseSystemProxy      bool   `json:"useSystemProxy"`
-	Proxy               string `json:"proxy"`
-	RequestMaxRetries   int    `json:"requestMaxRetries"`
-	RequestBaseDelay    int    `json:"requestBaseDelay"`
-	CronNearMinutes     int    `json:"cronNearMinutes"`
-	Timeout             int    `json:"timeout"`
+	CredPath          string `json:"credPath"`
+	CredsBase64       string `json:"credsBase64"`
+	CredsFilePath     string `json:"credsFilePath"`
+	Region            string `json:"region"`
+	UseSystemProxy    bool   `json:"useSystemProxy"`
+	Proxy             string `json:"proxy"`
+	RequestMaxRetries int    `json:"requestMaxRetries"`
+	RequestBaseDelay  int    `json:"requestBaseDelay"`
+	CronNearMinutes   int    `json:"cronNearMinutes"`
+	Timeout           int    `json:"timeout"`
 }
 
 // LoadConfig loads configuration from file and environment variables

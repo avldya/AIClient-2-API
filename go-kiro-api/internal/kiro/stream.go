@@ -248,7 +248,7 @@ func indexFrom(s, substr string, start int) int {
 // 创建 Claude 内容事件
 func (sp *StreamParser) createContentEvent(content, model string) models.ClaudeStreamEvent {
 	return models.ClaudeStreamEvent{
-		Type: "content_block_delta",
+		Type:  "content_block_delta",
 		Index: 0,
 		Delta: &models.ClaudeDelta{
 			Type: "text_delta",

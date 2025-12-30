@@ -56,31 +56,31 @@ func main() {
 	mux.HandleFunc("/health", handler.HandleHealthCheck)
 
 	// OpenAI compatible endpoints
-	mux.HandleFunc("/v1/chat/completions", 
+	mux.HandleFunc("/v1/chat/completions",
 		handler.LoggingMiddleware(
 			handler.CORSMiddleware(
 				handler.AuthMiddleware(handler.HandleOpenAIChatCompletions))))
 
 	// Claude compatible endpoints
-	mux.HandleFunc("/v1/messages", 
+	mux.HandleFunc("/v1/messages",
 		handler.LoggingMiddleware(
 			handler.CORSMiddleware(
 				handler.AuthMiddleware(handler.HandleClaudeMessages))))
 
 	// Model listing
-	mux.HandleFunc("/v1/models", 
+	mux.HandleFunc("/v1/models",
 		handler.LoggingMiddleware(
 			handler.CORSMiddleware(
 				handler.AuthMiddleware(handler.HandleListModels))))
 
 	// Token counting
-	mux.HandleFunc("/v1/messages/count_tokens", 
+	mux.HandleFunc("/v1/messages/count_tokens",
 		handler.LoggingMiddleware(
 			handler.CORSMiddleware(
 				handler.AuthMiddleware(handler.HandleCountTokens))))
 
 	// Usage limits
-	mux.HandleFunc("/getUsageLimits", 
+	mux.HandleFunc("/getUsageLimits",
 		handler.LoggingMiddleware(
 			handler.CORSMiddleware(
 				handler.AuthMiddleware(handler.HandleGetUsageLimits))))
