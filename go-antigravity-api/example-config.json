@@ -1,0 +1,17 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 3000,
+    "apiKey": "your-api-key-here"
+  },
+  "antigravity": {
+    "oauthCredsFilePath": "",
+    "projectId": "",
+    "baseUrlDaily": "https://daily-cloudcode-pa.sandbox.googleapis.com",
+    "baseUrlAutopush": "https://autopush-cloudcode-pa.sandbox.googleapis.com",
+    "userAgent": "antigravity/1.11.5 windows/amd64",
+    "requestMaxRetries": 3,
+    "requestBaseDelay": 1000,
+    "cronNearMinutes": 50
+  }
+}
